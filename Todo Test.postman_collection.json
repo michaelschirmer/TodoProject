@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "6c29aca5-eceb-4c4d-ae99-de1faf274e63",
+		"name": "Todo Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TodoGetAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d667e87-3882-4434-be6b-55105c3d4883",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"A todo list item has been returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Title\");",
+							"});",
+							"",
+							"pm.test(\"The function returned the correct HTTP Status Code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:50127/api/todo/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50127",
+					"path": [
+						"api",
+						"todo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TodoGetSingle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a195dfc-1be6-434c-94a8-df1d6eafe16b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"A todo list item has been returned\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Title\");",
+							"});",
+							"",
+							"pm.test(\"The function returned the correct HTTP Status Code (200)\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Specified ID not found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:50127/api/todo/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50127",
+					"path": [
+						"api",
+						"todo",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TodoPost",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "60af4606-05ba-4ac4-af8d-05e18d031652",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"A todo list item was successfully inserted\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Title\");",
+							"});",
+							"",
+							"// Fails test, can't return Created without issues",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Bad Request Submitted\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:50127/api/Todo/PostList/?title=sampletitle3&description=sampledescription3&dueDate=1993-10-10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50127",
+					"path": [
+						"api",
+						"Todo",
+						"PostList",
+						""
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "sampletitle3"
+						},
+						{
+							"key": "description",
+							"value": "sampledescription3"
+						},
+						{
+							"key": "dueDate",
+							"value": "1993-10-10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TodoPatch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f5bb77a-961e-4a39-bf00-a7c3df993ff9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"The Patch is Successful\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Patch Successful\");",
+							"});",
+							"",
+							"pm.test(\"Specified ID not found\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:50127/api/todo/ChangeTodoList/?id=1&title=newtitle&description=newdescription&dueDate=1980-1-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50127",
+					"path": [
+						"api",
+						"todo",
+						"ChangeTodoList",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "title",
+							"value": "newtitle"
+						},
+						{
+							"key": "description",
+							"value": "newdescription"
+						},
+						{
+							"key": "dueDate",
+							"value": "1980-1-1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
